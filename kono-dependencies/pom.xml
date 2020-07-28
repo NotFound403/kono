@@ -11,7 +11,6 @@
     <name>kono dependencies</name>
     <description>the root dependencies</description>
     <properties>
-        <daidai.version>1.1.0.RELEASE</daidai.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -95,7 +94,6 @@
                 <artifactId>weixin-java-pay</artifactId>
                 <version>${wexin-pay.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>weixin-java-miniapp</artifactId>
@@ -140,6 +138,7 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${servlet.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
@@ -163,21 +162,6 @@
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
                 <scope>compile</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.daidai</groupId>
-                <artifactId>netty-websocket-spring-boot-starter</artifactId>
-                <version>${daidai.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.daidai</groupId>
-                <artifactId>oss-spring-boot-starter</artifactId>
-                <version>${daidai.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.daidai</groupId>
-                <artifactId>sms-spring-boot-starter</artifactId>
-                <version>${daidai.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
