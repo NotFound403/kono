@@ -1,2 +1,6 @@
 server:
   port: 7777
+spring:
+  jackson:
+    time-zone: GMT+8
+
