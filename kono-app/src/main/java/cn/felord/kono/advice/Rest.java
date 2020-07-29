@@ -4,16 +4,16 @@ package cn.felord.kono.advice;
  * The interface Rest.
  *
  * @param <T> the type parameter
- * @author Dax
+ * @author felord.cn
  * @since 22 :29  2019-04-02
  */
 public interface Rest<T> {
     /**
-     * 状态码 .
+     * 业务状态码，设计时应该区别于http状态码.
      *
-     * @param httpStatus the http status
+     * @param code the code
      */
-    void setHttpStatus(int httpStatus);
+    void setCode(int code);
 
     /**
      * 数据载体.
@@ -30,7 +30,7 @@ public interface Rest<T> {
     void setMsg(String msg);
 
     /**
-     * Sets identifier.
+     * 预留的标识位，作为一些业务的处理标识.
      *
      * @param identifier 标识
      */
