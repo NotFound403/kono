@@ -7,8 +7,10 @@
     <groupId>cn.felord</groupId>
     <artifactId>kono</artifactId>
     <version>1.0.0.RELEASE</version>
+    <packaging>pom</packaging>
 
     <modules>
         <module>kono-dependencies</module>
+        <module>kono-app</module>
     </modules>
 </project>
