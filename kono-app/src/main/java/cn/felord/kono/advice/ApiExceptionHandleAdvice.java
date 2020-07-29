@@ -22,7 +22,7 @@ import java.util.Optional;
  */
 @Slf4j
 @RestControllerAdvice
-public class ApiExceptionHandler {
+public class ApiExceptionHandleAdvice {
 
     @ExceptionHandler(BindException.class)
     public Rest<?> handle(HttpServletRequest request, BindException e) {
