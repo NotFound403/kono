@@ -20,18 +20,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
-    <distributionManagement>
-        <repository>
-            <id>nexus</id>
-            <name>Releases</name>
-            <url>http://47.92.67.211:8081/repository/maven-releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus</id>
-            <name>Snapshot</name>
-            <url>http://47.92.67.211:8081/repository/maven-snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>io.springfox</groupId>
