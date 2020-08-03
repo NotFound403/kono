@@ -1,6 +1,36 @@
 server:
   port: 7777
 spring:
+  application:
+    name: KONO
   jackson:
     time-zone: GMT+8
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bc_recyling?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true
+    username: root
+    password: 123456
+    hikari:
+      max-lifetime: 176500
+      maximum-pool-size: 15
+      idle-timeout: 76500
+mybatis:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  type-aliases-package: cn.felord.kono.entity
+  configuration:
+    map-underscore-to-camel-case: true
 
+
+logging:
+  level:
+    cn:
+      felord:
+        kono:
+          mapper: trace
+    org:
+      springframework:
+        data: INFO
+        jdbc:
+          core:
+            JdbcTemplate: debug

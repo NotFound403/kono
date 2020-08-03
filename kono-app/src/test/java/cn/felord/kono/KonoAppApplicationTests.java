@@ -2,8 +2,12 @@ package cn.felord.kono;
 
 import cn.felord.kono.beanmapping.BeanMapping;
 import cn.felord.kono.controller.test.UserController;
+import cn.felord.kono.entity.ServeUser;
 import cn.felord.kono.entity.UserInfo;
 import cn.felord.kono.entity.UserInfoVO;
+import cn.felord.kono.mapper.ServeUserMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,6 +37,10 @@ class KonoAppApplicationTests {
      */
     @Autowired
     BeanMapping beanMapping;
+    @Autowired
+    ServeUserMapper serveUserMapper;
+    @Autowired
+    ObjectMapper objectMapper;
 
     /**
      * 测试全局异常处理.
@@ -88,6 +96,16 @@ class KonoAppApplicationTests {
 
         Assertions.assertEquals(userInfoVO.getName(), userInfo.getName());
         Assertions.assertNotNull(userInfoVO.getAddTime());
+    }
+
+
+    @Test
+    void testRepo() throws JsonProcessingException {
+        ServeUser serveUserByUserId = serveUserMapper.findServeUserByUserId("1289391430608330754");
+
+
+        System.out.println(objectMapper.writeValueAsString(serveUserByUserId));
+
     }
 
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.felord.kono.mapper.ServeUserMapper">
+
+    <select id="findById" resultType="cn.felord.kono.entity.ServeUser">
+       <bind name="userId" value="_parameter.id"/>
+        select user_id, nick_name, id_number
+        from serve_user
+        where user_id = #{userId}
+    </select>
+</mapper>
