@@ -4,6 +4,7 @@ import cn.felord.kono.beanmapping.BeanMapping;
 import cn.felord.kono.controller.test.UserController;
 import cn.felord.kono.entity.UserInfo;
 import cn.felord.kono.entity.UserInfoVO;
+import cn.felord.kono.mapper.UserInfoMapper;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,29 @@ class KonoAppApplicationTests {
      */
     @Autowired
     BeanMapping beanMapping;
+    @Autowired
+    UserInfoMapper userInfoMapper;
+
+    @Test
+    void testUserInfoMapperSave(){
+        UserInfo userInfo = new UserInfo();
+        userInfo.setName("felord.cn");
+        userInfo.setAge(18);
+        Integer save = userInfoMapper.save(userInfo);
+        Assertions.assertEquals(1,save);
+
+    }
+
+    @Test
+    void testUserInfoMapperFindById(){
+
+        UserInfo userInfo = userInfoMapper.findById(33);
+
+        System.out.println("userInfo = " + userInfo);
+        Assertions.assertNotNull(userInfo);
+
+    }
+
 
     /**
      * 测试全局异常处理.

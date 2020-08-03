@@ -3,4 +3,28 @@ server:
 spring:
   jackson:
     time-zone: GMT+8
+  datasource:
+    # 连接池实现的限定名，这里使用hikari连接池。一般不用配置这个，会自动去类路径下加载，这是一个可选的配置。
+    #    type: com.zaxxer.hikari.HikariDataSource
+    # 数据库的驱动JDBC驱动程序的类全限定名，它其实会根据下面的url配置自动检测，这是一个可选配置。
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 数据库的JDBC链接
+    url: jdbc:mysql://localhost:3306/bc_recyling
+    # 数据库用户名
+    username: root
+    # 数据库密码
+    password: 123456
+    # mybatis 配置
+mybatis:
+  configuration:
+    # 下划线转驼峰
+    map-underscore-to-camel-case: true
+  # 扫描 xml 文件位置
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+logging:
+  level:
+    # 打印SQL日志
+    cn.felord.kono.mapper: debug
+
 

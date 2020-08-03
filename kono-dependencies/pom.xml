@@ -21,6 +21,7 @@
         <springSecurityJwt.version>1.1.1.RELEASE</springSecurityJwt.version>
         <hutool.version>5.3.7</hutool.version>
         <mybatisplus.version>3.3.2</mybatisplus.version>
+        <mybatis.boot.version>2.1.3</mybatis.boot.version>
         <wexin-pay.version>3.2.0</wexin-pay.version>
         <wexin-miniapp.version>3.2.0</wexin-miniapp.version>
         <swagger.version>2.9.2</swagger.version>
@@ -66,6 +67,11 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-jwt</artifactId>
                 <version>${springSecurityJwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
