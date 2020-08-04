@@ -31,7 +31,11 @@
    + swagger2 文档（开发测试）
    + docker 容器技术
    
-   
+## 系列文章
+- [从零搭建Spring Boot脚手架（1）：开篇以及技术选型](https://mp.weixin.qq.com/s/k0faB9xElGpCyLrJfGc7uQ)
+- [从零搭建Spring Boot脚手架（2）：增加通用的功能](https://mp.weixin.qq.com/s/HKBF57Ut5EK9ccPeBxDZbA)   
+- [从零搭建Spring Boot脚手架（3）：集成mybatis](https://mp.weixin.qq.com/s/fAawA2hNCzkB-rrt5ONjkw)
+
 ## CHANGELOG   
 变更日志
 ### day01  
@@ -39,5 +43,8 @@ Git分支 day01
 
 1. 项目结构构建
 2. 集成 **统一返回体**、**统一异常处理**、**快速类型转换**，**参数校验** 能力
+
+### day02
+1. 集成Mybatis
 
  
