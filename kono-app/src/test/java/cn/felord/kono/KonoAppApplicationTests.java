@@ -2,9 +2,10 @@ package cn.felord.kono;
 
 import cn.felord.kono.beanmapping.BeanMapping;
 import cn.felord.kono.controller.test.UserController;
+import cn.felord.kono.entity.ClientUser;
 import cn.felord.kono.entity.UserInfo;
 import cn.felord.kono.entity.UserInfoVO;
-import cn.felord.kono.mapper.UserInfoMapper;
+import cn.felord.kono.mapper.ClientUserMapper;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -35,27 +36,17 @@ class KonoAppApplicationTests {
     @Autowired
     BeanMapping beanMapping;
     @Autowired
-    UserInfoMapper userInfoMapper;
+    ClientUserMapper clientUserMapper;
 
     @Test
     void testUserInfoMapperSave(){
-        UserInfo userInfo = new UserInfo();
-        userInfo.setName("felord.cn");
-        userInfo.setAge(18);
-        Integer save = userInfoMapper.save(userInfo);
-        Assertions.assertEquals(1,save);
 
+        ClientUser byId = clientUserMapper.findById("1290158564933599234");
+
+        System.out.println("byId = " + byId);
     }
 
-    @Test
-    void testUserInfoMapperFindById(){
 
-        UserInfo userInfo = userInfoMapper.findById(33);
-
-        System.out.println("userInfo = " + userInfo);
-        Assertions.assertNotNull(userInfo);
-
-    }
 
 
     /**

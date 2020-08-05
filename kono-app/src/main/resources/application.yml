@@ -9,7 +9,7 @@ spring:
     # 数据库的驱动JDBC驱动程序的类全限定名，它其实会根据下面的url配置自动检测，这是一个可选配置。
     #    driver-class-name: com.mysql.cj.jdbc.Driver
     # 数据库的JDBC链接
-    url: jdbc:mysql://ip:port/database
+    url: jdbc:mysql://localhost:3306/bc_rec
     # 数据库用户名
     username: root
     # 数据库密码
@@ -24,7 +24,14 @@ mybatis:
 
 logging:
   level:
-    # 打印SQL日志
-    cn.felord.kono.mapper: debug
-
+    cn:
+      felord:
+        kono:
+          mapper: trace
+    org:
+      springframework:
+        data: INFO
+        jdbc:
+          core:
+            JdbcTemplate: debug
 
