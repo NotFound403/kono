@@ -1,4 +1,4 @@
-package cn.felord.kono.configuration;
+package cn.felord.kono.mybatis;
 
 /**
  * @author a

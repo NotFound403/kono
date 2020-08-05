@@ -17,6 +17,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.time.LocalDateTime;
+
 import static org.hamcrest.core.IsNull.notNullValue;
 
 /**
@@ -39,11 +41,43 @@ class KonoAppApplicationTests {
     ClientUserMapper clientUserMapper;
 
     @Test
-    void testUserInfoMapperSave(){
+    void testCrudMapperFind(){
 
-        ClientUser byId = clientUserMapper.findById("1290158564933599234");
+        ClientUser byId = clientUserMapper.findById("1289391430608330754");
 
         System.out.println("byId = " + byId);
+    }
+
+    @Test
+    void testCrudMapperInsert(){
+        ClientUser clientUser = new ClientUser();
+        clientUser.setUserId("1111111111111111111");
+        clientUser.setNickName("felord.cn");
+        clientUser.setAddTime(LocalDateTime.now());
+
+        clientUserMapper.insert(clientUser);
+    }
+
+
+    @Test
+    void testCrudMapperUpdate(){
+        ClientUser clientUser = new ClientUser();
+        clientUser.setUserId("1111111111111111111");
+        clientUser.setNickName("felord.cn");
+        clientUser.setAddTime(LocalDateTime.now());
+        clientUser.setProvince("HN");
+        clientUser.setCountry("CN");
+
+        clientUserMapper.updateById(clientUser);
+    }
+
+    @Test
+    void testCrudMapperDelete(){
+
+
+        clientUserMapper.deleteById("1111111111111111111");
+
+
     }
 
 

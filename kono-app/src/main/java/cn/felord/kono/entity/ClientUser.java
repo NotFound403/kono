@@ -1,5 +1,6 @@
 package cn.felord.kono.entity;
 
+import cn.felord.kono.mybatis.PrimaryKey;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +23,7 @@ public class ClientUser   {
     /**
      * 用户唯一标示
      */
+    @PrimaryKey
     private String userId;
 
     /**

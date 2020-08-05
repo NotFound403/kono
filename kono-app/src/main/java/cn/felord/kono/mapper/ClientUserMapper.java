@@ -1,6 +1,6 @@
 package cn.felord.kono.mapper;
 
-import cn.felord.kono.configuration.CrudMapper;
+import cn.felord.kono.mybatis.CrudMapper;
 import cn.felord.kono.entity.ClientUser;
 
 /**

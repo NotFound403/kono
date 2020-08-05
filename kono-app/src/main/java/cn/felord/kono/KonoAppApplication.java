@@ -1,6 +1,6 @@
 package cn.felord.kono;
 
-import cn.felord.kono.configuration.MybatisMapperFactoryBean;
+import cn.felord.kono.mybatis.MybatisMapperFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

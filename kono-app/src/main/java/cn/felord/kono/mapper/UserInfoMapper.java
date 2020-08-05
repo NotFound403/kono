@@ -1,11 +1,13 @@
-package cn.felord.kono.controller.test;
+package cn.felord.kono.mapper;
 
 
 import cn.felord.kono.entity.UserInfo;
 
+
 /**
  * 数据库脚本在resources/sql/ddl.sql中
  */
+
 public interface UserInfoMapper {
     /**
      * Save user info.
