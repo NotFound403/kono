@@ -1,5 +1,6 @@
 package cn.felord.kono.mybatis;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -23,6 +24,7 @@ import java.util.stream.Stream;
  *
  * @author felord.cn
  */
+@Slf4j
 public class CrudMapperProvider {
     /**
      * The constant HUMP_PATTERN.
@@ -60,28 +62,35 @@ public class CrudMapperProvider {
      * @param mapperInterface the mapper interface
      */
     public CrudMapperProvider(Class<? extends CrudMapper<?, ?>> mapperInterface) {
+        // 拿到 具体的Mapper 接口  如 UserInfoMapper
         this.mapperInterface = mapperInterface;
         Type[] genericInterfaces = mapperInterface.getGenericInterfaces();
-        Type genericInterface1 = genericInterfaces[0];
-        ParameterizedType genericInterface = (ParameterizedType) genericInterface1;
+        // 从Mapper 接口中获取 CrudMapper<UserInfo,String>
+        Type mapperGenericInterface = genericInterfaces[0];
+        // 参数化类型
+        ParameterizedType genericType = (ParameterizedType) mapperGenericInterface;
 
-
-        Type[] actualTypeArguments = genericInterface.getActualTypeArguments();
+          // 参数化类型的目的时为了解析出 [UserInfo,String]
+        Type[] actualTypeArguments = genericType.getActualTypeArguments();
+        // 这样就拿到实体类型 UserInfo
         this.entityType = (Class<?>) actualTypeArguments[0];
+        // 拿到主键类型 String
         this.primaryKeyType = (Class<?>) actualTypeArguments[1];
-
+        // 获取所有实体类属性  本来打算采用内省方式获取
         Field[] declaredFields = this.entityType.getDeclaredFields();
 
-        identifer = Stream.of(this.entityType.getDeclaredFields())
+        // 解析主键
+        this.identifer = Stream.of(declaredFields)
                 .filter(field -> field.isAnnotationPresent(PrimaryKey.class))
                 .findAny()
                 .map(Field::getName)
                 .orElseThrow(() -> new IllegalArgumentException(String.format("no @PrimaryKey found in %s", this.entityType.getName())));
 
-
-        columnFields = Stream.of(declaredFields)
+        // 解析属性名并封装为下划线字段 排除了静态属性  其它没有深入 后续有需要可声明一个忽略注解用来忽略字段
+        this.columnFields = Stream.of(declaredFields)
                 .filter(field -> !Modifier.isStatic(field.getModifiers()))
                 .collect(Collectors.toList());
+        // 解析表名
         this.table = camelCaseToMapUnderscore(entityType.getSimpleName()).replaceFirst("_", "");
     }
 
@@ -98,7 +107,7 @@ public class CrudMapperProvider {
                 .map(CrudMapperProvider::camelCaseToMapUnderscore)
                 .toArray(String[]::new);
 
-        String CONDITION = primaryKey().concat(" = #{" + identifer + "}");
+        String CONDITION = primaryColumn().concat(" = #{" + identifer + "}");
 
         String findSQL = new SQL()
                 .SELECT(COLUMNS)
@@ -152,7 +161,7 @@ public class CrudMapperProvider {
      * @param configuration the configuration
      */
     private void deleteById(Configuration configuration) {
-        String CONDITION = primaryKey().concat(" = #{" + identifer + "}");
+        String CONDITION = primaryColumn().concat(" = #{" + identifer + "}");
 
         String deleteSQL = new SQL()
                 .DELETE_FROM(table)
@@ -175,10 +184,12 @@ public class CrudMapperProvider {
 
         String[] SETS = columnFields.stream()
                 .map(Field::getName)
+                // 更新忽略主键
+                .filter(name->!identifer.equals(name))
                 .map(name -> String.format("%s = #{%s}", camelCaseToMapUnderscore(name), name))
                 .toArray(String[]::new);
 
-        String CONDITION = primaryKey().concat(" = #{" + identifer + "}");
+        String CONDITION = primaryColumn().concat(" = #{" + identifer + "}");
 
         String updateSQL = new SQL().UPDATE(table)
                 .SET(SETS)
@@ -221,18 +232,25 @@ public class CrudMapperProvider {
                                       SqlCommandType sqlCommandType,
                                       Class<?> parameterType,
                                       Map<String, Object> additionalParameters) {
-        SqlSource sqlSource = new SqlSourceBuilder(configuration).parse(originalSql, parameterType, additionalParameters);
+
+        boolean hasAdd = configuration.getMappedStatementNames().contains(id);
+
+        if (!hasAdd){
+            SqlSource sqlSource = new SqlSourceBuilder(configuration).parse(originalSql, parameterType, additionalParameters);
 
 
-        List<ResultMap> resultMaps = getStatementResultMaps(configuration, entityType, id);
-        MappedStatement mappedStatement = new MappedStatement.Builder(configuration,
-                id,
-                sqlSource,
-                sqlCommandType)
-                .resultMaps(resultMaps)
-                .build();
+            List<ResultMap> resultMaps = getStatementResultMaps(configuration, entityType, id);
+            MappedStatement mappedStatement = new MappedStatement.Builder(configuration,
+                    id,
+                    sqlSource,
+                    sqlCommandType)
+                    .resultMaps(resultMaps)
+                    .build();
 
-        configuration.addMappedStatement(mappedStatement);
+            configuration.addMappedStatement(mappedStatement);
+        }else {
+            log.warn("statementId {} has been registered",id);
+        }
     }
 
 
@@ -241,7 +259,7 @@ public class CrudMapperProvider {
      *
      * @return the string
      */
-    private String primaryKey() {
+    private String primaryColumn() {
 
         return camelCaseToMapUnderscore(identifer);
     }

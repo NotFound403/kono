@@ -1,5 +1,6 @@
 package cn.felord.kono.entity;
 
+import cn.felord.kono.mybatis.PrimaryKey;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 public class ClientUserRole   {
 
     private static final long serialVersionUID = 1L;
-
+    @PrimaryKey
     private String roleId;
 
     private String userId;

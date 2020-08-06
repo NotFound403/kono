@@ -33,6 +33,7 @@ public class MybatisMapperFactoryBean<T extends CrudMapper<?, ?>> extends Mapper
                 configuration.addMapper(mapperInterface);
                  // 一个写入 SQL映射的时机
                 CrudMapperProvider crudMapperProvider = new CrudMapperProvider(mapperInterface);
+                // 注册 MappedStatement
                 crudMapperProvider.addMappedStatements(configuration);
 
             } catch (Exception e) {

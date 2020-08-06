@@ -3,9 +3,12 @@ package cn.felord.kono;
 import cn.felord.kono.beanmapping.BeanMapping;
 import cn.felord.kono.controller.test.UserController;
 import cn.felord.kono.entity.ClientUser;
+import cn.felord.kono.entity.ClientUserRole;
 import cn.felord.kono.entity.UserInfo;
 import cn.felord.kono.entity.UserInfoVO;
 import cn.felord.kono.mapper.ClientUserMapper;
+import cn.felord.kono.mapper.ClientUserRoleMapper;
+import cn.felord.kono.mapper.UserInfoMapper;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -39,6 +42,10 @@ class KonoAppApplicationTests {
     BeanMapping beanMapping;
     @Autowired
     ClientUserMapper clientUserMapper;
+    @Autowired
+    ClientUserRoleMapper clientUserRoleMapper;
+    @Autowired
+    UserInfoMapper userInfoMapper;
 
     @Test
     void testCrudMapperFind(){
@@ -47,6 +54,21 @@ class KonoAppApplicationTests {
 
         System.out.println("byId = " + byId);
     }
+
+
+
+    @Test
+    public void testUser(){
+        UserInfo byId = userInfoMapper.findById("");
+        int insert = userInfoMapper.insert(null);
+        int i = userInfoMapper.deleteById("");
+
+        int i1 = userInfoMapper.updateById(null);
+
+
+    }
+
+
 
     @Test
     void testCrudMapperInsert(){
@@ -74,8 +96,10 @@ class KonoAppApplicationTests {
     @Test
     void testCrudMapperDelete(){
 
+        ClientUserRole byId = clientUserRoleMapper.findById("1290177637255876610");
+        System.out.println("byId = " + byId);
 
-        clientUserMapper.deleteById("1111111111111111111");
+//        clientUserMapper.deleteById("1111111111111111111");
 
 
     }

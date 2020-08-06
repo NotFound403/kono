@@ -35,18 +35,21 @@
 - [从零搭建Spring Boot脚手架（1）：开篇以及技术选型](https://mp.weixin.qq.com/s/k0faB9xElGpCyLrJfGc7uQ)
 - [从零搭建Spring Boot脚手架（2）：增加通用的功能](https://mp.weixin.qq.com/s/HKBF57Ut5EK9ccPeBxDZbA)   
 - [从零搭建Spring Boot脚手架（3）：集成mybatis](https://mp.weixin.qq.com/s/fAawA2hNCzkB-rrt5ONjkw)
-
+- [从零搭建Spring Boot脚手架（4）：手写Mybatis通用Mapper](https://mp.weixin.qq.com/s/QYr6itS6Y6WFZdBgSNH-5w)
 ## CHANGELOG   
 变更日志
 
 
 ### day01  
-Git分支 day01
 
 1. 项目结构构建
 2. 集成 **统一返回体**、**统一异常处理**、**快速类型转换**，**参数校验** 能力
 
 ### day02
 1. 集成Mybatis
+
+### day03
+
+1. 手动实现Mybatis通用Mapper，实验性，不会合并到主分支
 
  

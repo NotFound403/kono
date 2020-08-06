@@ -1,11 +1,14 @@
 package cn.felord.kono.mybatis;
 
 /**
- * @author a
- * @since 14:00
- **/
+ * 所有的Mapper接口都会继承{@code CrudMapper<T, PK>}.
+ *
+ * @param <T>  the type parameter
+ * @param <PK> the type parameter
+ * @author felord.cn
+ * @since 14 :00
+ */
 public interface CrudMapper<T, PK> {
-
 
     int insert(T entity);
 
@@ -14,5 +17,4 @@ public interface CrudMapper<T, PK> {
     int deleteById(PK id);
 
     T findById(PK id);
-
 }
