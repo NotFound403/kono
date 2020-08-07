@@ -1,6 +1,7 @@
 package cn.felord.kono.mybatis;
 
-import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -13,7 +14,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -24,8 +28,11 @@ import java.util.stream.Stream;
  *
  * @author felord.cn
  */
-@Slf4j
 public class CrudMapperProvider {
+    /**
+     * The Logger.
+     */
+    protected final Log logger = LogFactory.getLog(getClass());
     /**
      * The constant HUMP_PATTERN.
      */
@@ -70,7 +77,7 @@ public class CrudMapperProvider {
         // 参数化类型
         ParameterizedType genericType = (ParameterizedType) mapperGenericInterface;
 
-          // 参数化类型的目的时为了解析出 [UserInfo,String]
+        // 参数化类型的目的时为了解析出 [UserInfo,String]
         Type[] actualTypeArguments = genericType.getActualTypeArguments();
         // 这样就拿到实体类型 UserInfo
         this.entityType = (Class<?>) actualTypeArguments[0];
@@ -84,7 +91,7 @@ public class CrudMapperProvider {
                 .filter(field -> field.isAnnotationPresent(PrimaryKey.class))
                 .findAny()
                 .map(Field::getName)
-                .orElseThrow(() -> new IllegalArgumentException(String.format("no @PrimaryKey found in %s", this.entityType.getName())));
+                .orElseThrow(() -> new IllegalArgumentException(String.format("no annotation @PrimaryKey found in %s", this.entityType.getName())));
 
         // 解析属性名并封装为下划线字段 排除了静态属性  其它没有深入 后续有需要可声明一个忽略注解用来忽略字段
         this.columnFields = Stream.of(declaredFields)
@@ -100,8 +107,10 @@ public class CrudMapperProvider {
      * @param configuration the configuration
      */
     private void findById(Configuration configuration) {
-
-
+        String findId = mapperInterface.getName().concat(".").concat("findById");
+        if (existStatement(configuration, findId)) {
+            return;
+        }
         String[] COLUMNS = columnFields.stream()
                 .map(Field::getName)
                 .map(CrudMapperProvider::camelCaseToMapUnderscore)
@@ -114,7 +123,6 @@ public class CrudMapperProvider {
                 .FROM(table)
                 .WHERE(CONDITION)
                 .toString();
-        String findId = mapperInterface.getName().concat(".").concat("findById");
 
         Map<String, Object> additionalParameters = new HashMap<>();
 
@@ -130,7 +138,11 @@ public class CrudMapperProvider {
      * @param configuration the configuration
      */
     private void insert(Configuration configuration) {
+        String insertId = mapperInterface.getName().concat(".").concat("insert");
 
+        if (existStatement(configuration, insertId)) {
+            return;
+        }
         String[] COLUMNS = columnFields.stream()
                 .map(Field::getName)
                 .map(CrudMapperProvider::camelCaseToMapUnderscore)
@@ -147,7 +159,6 @@ public class CrudMapperProvider {
                 .INTO_VALUES(VALUES)
                 .toString();
 
-        String insertId = mapperInterface.getName().concat(".").concat("insert");
 
         Map<String, Object> additionalParameters = new HashMap<>();
 
@@ -155,19 +166,33 @@ public class CrudMapperProvider {
     }
 
 
+    private boolean existStatement(Configuration configuration, String id) {
+
+        if (configuration.getMappedStatementNames().contains(id)) {
+            logger.warn("statementId " + id + " has been registered , the CrudMapper will not override");
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Delete by id.
      *
      * @param configuration the configuration
      */
     private void deleteById(Configuration configuration) {
+
+        String deleteId = mapperInterface.getName().concat(".").concat("deleteById");
+
+        if (existStatement(configuration, deleteId)) {
+            return;
+        }
+
         String CONDITION = primaryColumn().concat(" = #{" + identifer + "}");
 
         String deleteSQL = new SQL()
                 .DELETE_FROM(table)
                 .WHERE(CONDITION).toString();
-
-        String deleteId = mapperInterface.getName().concat(".").concat("deleteById");
 
         Map<String, Object> additionalParameters = new HashMap<>();
 
@@ -182,10 +207,17 @@ public class CrudMapperProvider {
      */
     private void updateById(Configuration configuration) {
 
+
+        String updateId = mapperInterface.getName().concat(".").concat("updateById");
+
+        if (existStatement(configuration, updateId)) {
+            return;
+        }
+
         String[] SETS = columnFields.stream()
                 .map(Field::getName)
                 // 更新忽略主键
-                .filter(name->!identifer.equals(name))
+                .filter(name -> !identifer.equals(name))
                 .map(name -> String.format("%s = #{%s}", camelCaseToMapUnderscore(name), name))
                 .toArray(String[]::new);
 
@@ -194,8 +226,6 @@ public class CrudMapperProvider {
         String updateSQL = new SQL().UPDATE(table)
                 .SET(SETS)
                 .WHERE(CONDITION).toString();
-
-        String updateId = mapperInterface.getName().concat(".").concat("updateById");
 
         Map<String, Object> additionalParameters = new HashMap<>();
         doAddMappedStatement(configuration, updateId, updateSQL, SqlCommandType.UPDATE, entityType, additionalParameters);
@@ -232,25 +262,17 @@ public class CrudMapperProvider {
                                       SqlCommandType sqlCommandType,
                                       Class<?> parameterType,
                                       Map<String, Object> additionalParameters) {
+        SqlSource sqlSource = new SqlSourceBuilder(configuration).parse(originalSql, parameterType, additionalParameters);
 
-        boolean hasAdd = configuration.getMappedStatementNames().contains(id);
+        List<ResultMap> resultMaps = getStatementResultMaps(configuration, entityType, id);
+        MappedStatement mappedStatement = new MappedStatement.Builder(configuration,
+                id,
+                sqlSource,
+                sqlCommandType)
+                .resultMaps(resultMaps)
+                .build();
 
-        if (!hasAdd){
-            SqlSource sqlSource = new SqlSourceBuilder(configuration).parse(originalSql, parameterType, additionalParameters);
-
-
-            List<ResultMap> resultMaps = getStatementResultMaps(configuration, entityType, id);
-            MappedStatement mappedStatement = new MappedStatement.Builder(configuration,
-                    id,
-                    sqlSource,
-                    sqlCommandType)
-                    .resultMaps(resultMaps)
-                    .build();
-
-            configuration.addMappedStatement(mappedStatement);
-        }else {
-            log.warn("statementId {} has been registered",id);
-        }
+        configuration.addMappedStatement(mappedStatement);
     }
 
 
