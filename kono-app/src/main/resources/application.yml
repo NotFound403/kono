@@ -14,13 +14,17 @@ spring:
     username: root
     # 数据库密码
     password: 123456
-    # mybatis 配置
-mybatis:
+    # mybatis plus 配置
+mybatis-plus:
   configuration:
     # 下划线转驼峰
     map-underscore-to-camel-case: true
-  # 扫描 xml 文件位置
+    # 扫描 xml 文件位置
   mapper-locations: classpath:mapper/*Mapper.xml
+  global-config:
+    db-config:
+    # 使用雪花算法主键填充策略
+      id-type: assign_id
 
 logging:
   level:

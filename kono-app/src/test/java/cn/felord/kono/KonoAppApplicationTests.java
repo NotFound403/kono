@@ -4,7 +4,8 @@ import cn.felord.kono.beanmapping.BeanMapping;
 import cn.felord.kono.controller.test.UserController;
 import cn.felord.kono.entity.UserInfo;
 import cn.felord.kono.entity.UserInfoVO;
-import cn.felord.kono.mapper.UserInfoMapper;
+import cn.felord.kono.service.UserInfoService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -35,26 +36,25 @@ class KonoAppApplicationTests {
     @Autowired
     BeanMapping beanMapping;
     @Autowired
-    UserInfoMapper userInfoMapper;
+    UserInfoService userInfoService;
+
 
     @Test
-    void testUserInfoMapperSave(){
-        UserInfo userInfo = new UserInfo();
-        userInfo.setName("felord.cn");
-        userInfo.setAge(18);
-        Integer save = userInfoMapper.save(userInfo);
-        Assertions.assertEquals(1,save);
+    public void testUserInfo() {
 
-    }
+        final String userId ="12334343455457";
 
-    @Test
-    void testUserInfoMapperFindById(){
+        UserInfo byId = userInfoService.getById(userId);
 
-        UserInfo userInfo = userInfoMapper.findById(33);
 
-        System.out.println("userInfo = " + userInfo);
-        Assertions.assertNotNull(userInfo);
+        UserInfo one = userInfoService.getOne(new QueryWrapper<UserInfo>().lambda()
+                .eq(UserInfo::getUserId, userId));
 
+
+        Assertions.assertNotNull(byId);
+        Assertions.assertNotNull(one);
+
+        Assertions.assertEquals(byId.getName(),one.getName());
     }
 
 
