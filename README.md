@@ -38,7 +38,7 @@
 - [从零搭建Spring Boot脚手架（2）：增加通用的功能](https://mp.weixin.qq.com/s/HKBF57Ut5EK9ccPeBxDZbA)   
 - [从零搭建Spring Boot脚手架（3）：集成mybatis](https://mp.weixin.qq.com/s/fAawA2hNCzkB-rrt5ONjkw)
 - [从零搭建Spring Boot脚手架（4）：手写Mybatis通用Mapper](https://mp.weixin.qq.com/s/QYr6itS6Y6WFZdBgSNH-5w)
-
+- [从零搭建Spring Boot脚手架（5）：整合 Mybatis Plus](https://mp.weixin.qq.com/s/9uVsi9yfE0QheEKCUyGNPA)
 ## CHANGELOG   
 变更日志
 
@@ -58,3 +58,8 @@ Git分支 day02
 
 Git分支 day03
 1. 手动实现Mybatis通用Mapper，实验性，不会合并到主分支 
+
+### day04
+
+Git分支 day04
+1. 整合Mybatis Plus以及代码生成器
