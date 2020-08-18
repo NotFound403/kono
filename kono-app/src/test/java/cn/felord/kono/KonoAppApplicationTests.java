@@ -1,23 +1,12 @@
 package cn.felord.kono;
 
-import cn.felord.kono.beanmapping.BeanMapping;
-import cn.felord.kono.controller.test.UserController;
-import cn.felord.kono.entity.UserInfo;
-import cn.felord.kono.entity.UserInfoVO;
-import cn.felord.kono.service.UserInfoService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.hamcrest.core.Is;
-import org.junit.jupiter.api.Assertions;
+import cn.felord.kono.configuration.CaptchaCacheStorage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import static org.hamcrest.core.IsNull.notNullValue;
 
 /**
  * The type Kono app application tests.
@@ -30,88 +19,23 @@ class KonoAppApplicationTests {
      */
     @Autowired
     MockMvc mockMvc;
-    /**
-     * The Bean mapping.
-     */
     @Autowired
-    BeanMapping beanMapping;
+    CaptchaCacheStorage captchaCacheStorage;
     @Autowired
-    UserInfoService userInfoService;
+    StringRedisTemplate stringRedisTemplate;
+
 
 
     @Test
-    public void testUserInfo() {
-
-        final String userId ="12334343455457";
-
-        UserInfo byId = userInfoService.getById(userId);
-
-
-        UserInfo one = userInfoService.getOne(new QueryWrapper<UserInfo>().lambda()
-                .eq(UserInfo::getUserId, userId));
-
-
-        Assertions.assertNotNull(byId);
-        Assertions.assertNotNull(one);
-
-        Assertions.assertEquals(byId.getName(),one.getName());
+    public void test (){
+        String put = captchaCacheStorage.put("9527");
+        System.out.println("put = " + put);
     }
 
-
-    /**
-     * 测试全局异常处理.
-     *
-     * @throws Exception the exception
-     * @see UserController#getUserInfo()
-     */
     @Test
-    void testGlobalExceptionHandler() throws Exception {
-
-        String rtnJsonStr = "{\n" +
-                "    \"code\": 700,\n" +
-                "    \"data\": null,\n" +
-                "    \"msg\": \"test global exception handler\",\n" +
-                "    \"identifier\": \"-9999\"\n" +
-                "}";
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/user/get"))
-                .andExpect(MockMvcResultMatchers.content()
-                        .json(rtnJsonStr))
-                .andDo(MockMvcResultHandlers.print());
-    }
-
-    /**
-     * 测试统一返回体.
-     *
-     * @throws Exception the exception
-     * @see UserController#getUserVO()
-     */
-    @Test
-    void testUnifiedReturnStruct() throws Exception {
-//        "{\"code\":200,\"data\":{\"name\":\"felord.cn\",\"age\":18,\"addTime\":\"2020-07-30T13:08:53.201\"},\"msg\":\"\",\"identifier\":\"\"}";
-        mockMvc.perform(MockMvcRequestBuilders.get("/user/vo"))
-                .andExpect(MockMvcResultMatchers.jsonPath("code", Is.is(200)))
-                .andExpect(MockMvcResultMatchers.jsonPath("data.name", Is.is("felord.cn")))
-                .andExpect(MockMvcResultMatchers.jsonPath("data.age", Is.is(18)))
-                .andExpect(MockMvcResultMatchers.jsonPath("data.addTime", Is.is(notNullValue())))
-                .andDo(MockMvcResultHandlers.print());
-    }
-
-
-    /**
-     * 测试 mapStruct类型转换.
-     *
-     * @see BeanMapping
-     */
-    @Test
-    void testMapStruct() {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setName("felord.cn");
-        userInfo.setAge(18);
-        UserInfoVO userInfoVO = beanMapping.toUserInfoVo(userInfo);
-
-        Assertions.assertEquals(userInfoVO.getName(), userInfo.getName());
-        Assertions.assertNotNull(userInfoVO.getAddTime());
+    public void test1(){
+        // 
+        stringRedisTemplate.boundValueOps("hello").set("world");
     }
 
 }

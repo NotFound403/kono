@@ -9,12 +9,19 @@ spring:
     # 数据库的驱动JDBC驱动程序的类全限定名，它其实会根据下面的url配置自动检测，这是一个可选配置。
     #    driver-class-name: com.mysql.cj.jdbc.Driver
     # 数据库的JDBC链接
-    url: jdbc:mysql://ip:port/database
+    url: jdbc:mysql://localhost:3306/kono
     # 数据库用户名
     username: root
     # 数据库密码
     password: 123456
-    # mybatis plus 配置
+  redis:
+    host: localhost
+    port: 6379
+  cache:
+    type: REDIS
+    redis:
+      time-to-live: 120
+      # mybatis plus 配置
 mybatis-plus:
   configuration:
     # 下划线转驼峰
@@ -23,12 +30,10 @@ mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
   global-config:
     db-config:
-    # 使用雪花算法主键填充策略
+      # 使用雪花算法主键填充策略
       id-type: assign_id
 
 logging:
   level:
     # 打印SQL日志
     cn.felord.kono.mapper: debug
-
-

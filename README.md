@@ -39,6 +39,20 @@
 - [从零搭建Spring Boot脚手架（3）：集成mybatis](https://mp.weixin.qq.com/s/fAawA2hNCzkB-rrt5ONjkw)
 - [从零搭建Spring Boot脚手架（4）：手写Mybatis通用Mapper](https://mp.weixin.qq.com/s/QYr6itS6Y6WFZdBgSNH-5w)
 - [从零搭建Spring Boot脚手架（5）：整合 Mybatis Plus](https://mp.weixin.qq.com/s/9uVsi9yfE0QheEKCUyGNPA)
+
+## Docker 
+
+Mysql:
+
+```shell script
+docker run --name mysql-service -v d:/mysql/data:/var/lib/mysql -p 3306:3306 -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-time_zone="+8:00"
+```
+Redis AOF:
+
+```shell script
+docker run -d --privileged=true -p 6379:6379  -v d:/redis/data:/data --name redis-service redis:4.0.13 redis-server --appendonly yes
+``` 
+
 ## CHANGELOG   
 变更日志
 
@@ -63,3 +77,4 @@ Git分支 day03
 
 Git分支 day04
 1. 整合Mybatis Plus以及代码生成器
+
