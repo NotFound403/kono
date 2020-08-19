@@ -39,7 +39,7 @@
 - [从零搭建Spring Boot脚手架（3）：集成mybatis](https://mp.weixin.qq.com/s/fAawA2hNCzkB-rrt5ONjkw)
 - [从零搭建Spring Boot脚手架（4）：手写Mybatis通用Mapper](https://mp.weixin.qq.com/s/QYr6itS6Y6WFZdBgSNH-5w)
 - [从零搭建Spring Boot脚手架（5）：整合 Mybatis Plus](https://mp.weixin.qq.com/s/9uVsi9yfE0QheEKCUyGNPA)
-
+- [从零搭建Spring Boot脚手架（6）：整合Redis作为缓存](https://mp.weixin.qq.com/s/7l_mzFqjFD8lDT0iQ6W6bQ)
 ## Docker 
 
 Mysql:
@@ -78,3 +78,8 @@ Git分支 day03
 Git分支 day04
 1. 整合Mybatis Plus以及代码生成器
 
+### day05
+
+Git分支 day05
+1. 整合Redis作为缓存，使用Spring Cache作为缓存抽象层
+2. 对Redis的一些配置进行个性化，包括JSON序列化、Java 8 时间支持、缓存TTL过期个性化
