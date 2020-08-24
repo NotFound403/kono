@@ -32,6 +32,7 @@
         <servlet.version>4.0.1</servlet.version>
         <qrcode.version>1.3.1</qrcode.version>
         <mapstruct.version>1.3.0.Final</mapstruct.version>
+        <oss.version>1.0.0.RELEASE</oss.version>
     </properties>
 
 
@@ -116,7 +117,12 @@
                 <artifactId>aliyun-java-sdk-core</artifactId>
                 <version>${aliyun-sdk.version}</version>
             </dependency>
-
+            <!--  一定要先拉取项目通过 mvn install 安装到本地  -->
+            <dependency>
+                <groupId>cn.felord</groupId>
+                <artifactId>oss-spring-boot-starter</artifactId>
+                <version>${oss.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.qcloud</groupId>
                 <artifactId>cos_api</artifactId>

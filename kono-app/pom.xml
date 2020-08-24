@@ -100,6 +100,12 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-jwt</artifactId>
         </dependency>-->
+
+        <!--  一定要先拉取项目通过 mvn install 安装到本地  -->
+        <dependency>
+            <groupId>cn.felord</groupId>
+            <artifactId>oss-spring-boot-starter</artifactId>
+        </dependency>
          <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>

@@ -53,6 +53,20 @@ Redis AOF:
 docker run -d --privileged=true -p 6379:6379  -v d:/redis/data:/data --name redis-service redis:4.0.13 redis-server --appendonly yes
 ``` 
 
+Minio :
+```shell script
+
+docker run --name oss-service -d  -p 9000:9000  -e "MINIO_ACCESS_KEY=minio_access_key"  -e "MINIO_SECRET_KEY=felord_cn_sec_key"   minio/minio  server /data
+```
+
+
+Elasticsearch:
+```shell script
+docker run --name es-service -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e ES_JAVA_OPTS="-Xms64m -Xmx128m"    -d elasticsearch
+```
+
+
+
 ## CHANGELOG   
 变更日志
 

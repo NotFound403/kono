@@ -37,3 +37,15 @@ logging:
   level:
     # 打印SQL日志
     cn.felord.kono.mapper: debug
+oss:
+  aliyun:
+    active: true
+    access-key-id: LTAI4GH2E345QmJDrAGvWNH
+    access-key-secret: XjDpNn5JqHXGL3xIebgUkyKAZ1
+    endpoint: oss-cn-beijing.aliyuncs.com
+  minio:
+    active: true
+    access-key: minio_access_key
+    secret-key: felord_cn_sec_key
+    endpoint: http://localhost:9000
+
