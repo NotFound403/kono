@@ -18,20 +18,20 @@
 
 以 **Spring Boot 2.3.x.RELEASE** 为基础，涉及的框架和中间件有：
 
-   + springboot 基础整合框架
-   + servlet4  web 标准
-   + undertow 或者tomcat   web 容器
-   + spring cache  缓存抽象层
-   + spring security  安全框架
-   + json web token  安全框架**token**技术
-   + mybatis plus 3  **ORM**增强
-   + spring data jpa (选)
-   + redis  缓存中间件
-   + mysql   数据库
-   + mapstruct  bean转换器，编译期使用
-   + lombok  bean简化工具
-   + swagger2 文档（开发测试）
-   + docker 容器技术
+   +[x] springboot 基础整合框架
+   +[x] servlet4  web 标准
+   +[x] undertow 或者tomcat   web 容器
+   +[x] spring cache  缓存抽象层
+   +[x] spring security  安全框架
+   +[x] json web token  安全框架**token**技术
+   +[x] mybatis plus 3  **ORM**增强
+   +[x] redis  缓存中间件
+   +[x] mysql   数据库
+   +[x] Minio 对象存储服务
+   +[x] mapstruct  bean转换器，编译期使用
+   +[x] lombok  bean简化工具
+   +[x] swagger2 文档（开发测试）
+   +[x] docker 容器技术
    
 ## 系列文章
 - [从零搭建Spring Boot脚手架（1）：开篇以及技术选型](https://mp.weixin.qq.com/s/k0faB9xElGpCyLrJfGc7uQ)
@@ -40,6 +40,7 @@
 - [从零搭建Spring Boot脚手架（4）：手写Mybatis通用Mapper](https://mp.weixin.qq.com/s/QYr6itS6Y6WFZdBgSNH-5w)
 - [从零搭建Spring Boot脚手架（5）：整合 Mybatis Plus](https://mp.weixin.qq.com/s/9uVsi9yfE0QheEKCUyGNPA)
 - [从零搭建Spring Boot脚手架（6）：整合Redis作为缓存](https://mp.weixin.qq.com/s/7l_mzFqjFD8lDT0iQ6W6bQ)
+- [从零搭建Spring Boot脚手架（6）：整合OSS作为文件服务器](https://mp.weixin.qq.com/s/3wlQl3l110q1RNDE0kfI-w)
 ## Docker 
 
 Mysql:
@@ -97,3 +98,10 @@ Git分支 day04
 Git分支 day05
 1. 整合Redis作为缓存，使用Spring Cache作为缓存抽象层
 2. 对Redis的一些配置进行个性化，包括JSON序列化、Java 8 时间支持、缓存TTL过期个性化
+
+### day06
+
+Git分支 day06
+
+自定义了OSS相关的操作的Spring Boot Starter以组件化这些基础功能,地址 [oss-spring-boot](https://gitee.com/felord/oss-spring-boot.git),使用方法参考文章或者`README.md`
+> 需要`mvn install`自行安装到你本地的Maven仓库或者远程Maven仓库。
