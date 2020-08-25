@@ -18,20 +18,20 @@
 
 以 **Spring Boot 2.3.x.RELEASE** 为基础，涉及的框架和中间件有：
 
-   +[x] springboot 基础整合框架
-   +[x] servlet4  web 标准
-   +[x] undertow 或者tomcat   web 容器
-   +[x] spring cache  缓存抽象层
-   +[x] spring security  安全框架
-   +[x] json web token  安全框架**token**技术
-   +[x] mybatis plus 3  **ORM**增强
-   +[x] redis  缓存中间件
-   +[x] mysql   数据库
-   +[x] Minio 对象存储服务
-   +[x] mapstruct  bean转换器，编译期使用
-   +[x] lombok  bean简化工具
-   +[x] swagger2 文档（开发测试）
-   +[x] docker 容器技术
+   + springboot 基础整合框架
+   + servlet4  web 标准
+   + undertow 或者tomcat   web 容器
+   + spring cache  缓存抽象层
+   + spring security  安全框架
+   + json web token  安全框架**token**技术
+   + mybatis plus 3  **ORM**增强
+   + redis  缓存中间件
+   + mysql   数据库
+   + Minio 对象存储服务
+   + mapstruct  bean转换器，编译期使用
+   + lombok  bean简化工具
+   + swagger2 文档（开发测试）
+   + docker 容器技术
    
 ## 系列文章
 - [从零搭建Spring Boot脚手架（1）：开篇以及技术选型](https://mp.weixin.qq.com/s/k0faB9xElGpCyLrJfGc7uQ)
