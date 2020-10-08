@@ -18,6 +18,7 @@
         <java.version>1.8</java.version>
         <springboot.version>2.3.2.RELEASE</springboot.version>
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
+        <sentinel.version>1.8.0</sentinel.version>
         <springSecurityJwt.version>1.1.1.RELEASE</springSecurityJwt.version>
         <hutool.version>5.3.7</hutool.version>
         <mybatisplus.version>3.3.2</mybatisplus.version>
@@ -49,6 +50,13 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-dependencies</artifactId>
                 <version>${spring-boot-admin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-parent</artifactId>
+                <version>${sentinel.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

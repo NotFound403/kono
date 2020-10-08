@@ -41,6 +41,7 @@
 - [从零搭建Spring Boot脚手架（5）：整合 Mybatis Plus](https://mp.weixin.qq.com/s/9uVsi9yfE0QheEKCUyGNPA)
 - [从零搭建Spring Boot脚手架（6）：整合Redis作为缓存](https://mp.weixin.qq.com/s/7l_mzFqjFD8lDT0iQ6W6bQ)
 - [从零搭建Spring Boot脚手架（7）：整合OSS作为文件服务器](https://mp.weixin.qq.com/s/3wlQl3l110q1RNDE0kfI-w)
+- [Spring Security 系列](https://felord.cn/categories/spring-security/)
 ## Docker 
 
 Mysql:
