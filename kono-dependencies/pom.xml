@@ -16,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <springboot.version>2.3.2.RELEASE</springboot.version>
+        <springboot.version>2.5.12</springboot.version>
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
         <sentinel.version>1.8.0</sentinel.version>
         <springSecurityJwt.version>1.1.1.RELEASE</springSecurityJwt.version>
